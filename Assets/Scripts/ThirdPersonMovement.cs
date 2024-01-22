@@ -33,6 +33,11 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void Update()
     {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+
         isGrounded = Physics.CheckSphere(GroundCheck.position, groundDistance, groundMask);
         anim.SetBool("Grounded", isGrounded);
         if(isGrounded && velocity.y < 0 )
@@ -43,11 +48,16 @@ public class ThirdPersonMovement : MonoBehaviour
 
         }
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        bool attack = false;
 
-        if (direction.magnitude >= 0.1f)
+        if( anim.GetBool("Sword Swing 1")   )
+        {
+            attack = true;
+
+        }
+
+
+        if (direction.magnitude >= 0.1f && attack==false )
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);

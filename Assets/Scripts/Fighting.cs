@@ -61,17 +61,21 @@ public class Fighting : MonoBehaviour
             anim.SetBool("Sword Swing 1", false);
             anim.SetBool("Sword Swing 2", true);
         }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+        if (noOfClicks >= 3 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Sword Swing 2"))
+        {
+            anim.SetBool("Sword Swing 2", false);
+            anim.SetBool("Sword Swing 3", true);
+        }
+
+
+
+
+
+
+
+
     }
 
 
